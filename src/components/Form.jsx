@@ -21,14 +21,14 @@ class Form extends React.Component {
    
     render(){
 
-    var { operation } = this.props;
-    var { edituser } = this.state;
+    let { operation } = this.props;
+    let { edituser } = this.state;
     if (operation == "Edit" ) {
     return (    
     <div >
     <form>
-      <div>
-          <div className="form-group">
+      <div className="mr-4 ml-4 mb-4 mt-4">
+          <div className="form-group" >
           <label>Name</label>
           <input 
            name="name"
@@ -85,7 +85,7 @@ class Form extends React.Component {
 
         <div >
     <form>
-      <div>
+      <div className="mr-4 ml-4 mb-4 mt-4">
           <div className="form-group">
           <label>Name</label>
           <input 

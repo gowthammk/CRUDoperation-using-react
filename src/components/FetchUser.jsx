@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import "bootstrap/dist/css/bootstrap.css"
-import Table from "./Table"
-import Form from "./Form"
-import Modal from 'react-bootstrap/Modal'
+import "bootstrap/dist/css/bootstrap.css";
+import Modal from 'react-bootstrap/Modal';
+
+import Table from "./Table";
+import Form from "./Form";
+import SearchBox from "./SearchBox/SearchBox"
+
 
 
 class FetchUser extends Component {
@@ -11,7 +14,8 @@ class FetchUser extends Component {
         fields: {},
         users: [],
         operation: "",
-        editUser: {}
+        editUser: {},
+        searchQuery: ""
      }
 
     async componentDidMount(){
@@ -74,11 +78,20 @@ class FetchUser extends Component {
         this.setState({operation: "Add"})
     }
 
+    // Search a user
+    handleSearch = query => {
+        console.log(query);
+        this.setState({ searchQuery: query});
+    }
+
     render() {
+      const { searchQuery, users } = this.state;
+
+      const filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
       return(
       <div>
-      
-      <Table users = {this.state.users} onDelete={this.handleDelete} onEdit = {this.handleEdit} onHandleOperation={this.handleOperation} />
+      <SearchBox value={this.state.searchQuery} onChange={this.handleSearch}></SearchBox>
+      <Table users = {filteredUsers} onDelete={this.handleDelete} onHandleOperation={this.handleOperation} />
       { this.state.operation  == "Edit" && 
       <Modal show={true}>
       <Form user={this.state.edituser} operation={this.state.operation}  onSubmit={this.handleEdit} /> 
